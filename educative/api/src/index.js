@@ -1,7 +1,7 @@
 import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
-import appRouter from './app.js'
+import appRouter from './routes/app.js'
 
 const app = express()
 app.set('port', process.env.PORT)
