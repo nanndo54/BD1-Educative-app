@@ -1,8 +1,6 @@
-import configureDatabase from './database.js'
+import pool from './database.js'
 
 function appRouter(app) {
-  const pool = configureDatabase()
-
   app.get('/', (req, res) => {
     res.send({ response: 'Hello!' })
   })

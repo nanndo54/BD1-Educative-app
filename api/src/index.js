@@ -1,10 +1,7 @@
 import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
-
-import dotenv from 'dotenv'
-import appRouter from './app'
-dotenv.config()
+import appRouter from './app.js'
 
 const app = express()
 app.set('port', process.env.PORT)
@@ -21,27 +18,21 @@ async function listen() {
 
   console.log(`Server running on http://${address}:${port}`)
 
-  function close() {
-    console.log('Closing http server.')
+  function close(signal) {
+    console.info(`${signal} signal received`)
+    console.log('Closing http server')
     listener.close((err) => {
-      console.log('Http server closed.')
+      console.log('Http server closed')
       process.exit(err ? 1 : 0)
     })
   }
 
   process.on('SIGTERM', () => {
-    console.info('SIGTERM signal received.')
-    close()
+    close('SIGTERM')
   })
 
   process.on('SIGINT', () => {
-    console.info('SIGINT signal received.')
-    close()
-  })
-
-  process.on('SIGKILL', () => {
-    console.info('SIGINT signal received.')
-    close()
+    close('SIGINT')
   })
 }
 
