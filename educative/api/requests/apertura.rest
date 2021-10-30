@@ -1,0 +1,27 @@
+GET http://localhost:3000/api/apertura
+
+###
+
+GET http://localhost:3000/api/apertura/5
+
+###
+
+POST http://localhost:3000/api/apertura
+Content-Type: application/json
+
+{
+  "nombre": "test original"
+}
+
+###
+
+DELETE http://localhost:3000/api/apertura/5
+
+###
+
+PUT http://localhost:3000/api/apertura/5
+Content-Type: application/json
+
+{
+  "nombre": "test updated"
+}

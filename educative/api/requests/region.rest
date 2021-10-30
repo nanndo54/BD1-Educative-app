@@ -1,0 +1,27 @@
+GET http://localhost:3000/api/region
+
+###
+
+GET http://localhost:3000/api/region/18
+
+###
+
+POST http://localhost:3000/api/region
+Content-Type: application/json
+
+{
+  "nombre": "test original"
+}
+
+###
+
+DELETE http://localhost:3000/api/region/18
+
+###
+
+PUT http://localhost:3000/api/region/18
+Content-Type: application/json
+
+{
+  "nombre": "test updated"
+}

@@ -1,7 +1,14 @@
-CREATE TABLE departamento(
+CREATE TABLE region(
   id INT NOT NULL AUTO_INCREMENT,
   nombre VARCHAR(100),
   PRIMARY KEY(id)
+);
+CREATE TABLE departamento(
+  id INT NOT NULL AUTO_INCREMENT,
+  nombre VARCHAR(100),
+  id_region INT,
+  PRIMARY KEY(id),
+  FOREIGN KEY(id_region) REFERENCES region(id)
 );
 CREATE TABLE municipio(
   id INT NOT NULL AUTO_INCREMENT,
@@ -59,7 +66,7 @@ CREATE TABLE establecimiento(
   id INT NOT NULL AUTO_INCREMENT,
   nombre VARCHAR(100),
   direccion VARCHAR(100),
-  estudiantes VARCHAR(100),
+  estudiantes INT,
   id_municipio INT,
   id_nivel INT,
   id_genero INT,

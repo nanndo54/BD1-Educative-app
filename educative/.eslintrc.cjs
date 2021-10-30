@@ -9,6 +9,8 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
-    'space-before-function-paren': 'off'
+    'space-before-function-paren': 'off',
+    'no-unused-vars': 'off',
+    'multiline-ternary': 'off'
   }
 }

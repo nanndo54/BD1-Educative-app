@@ -1,0 +1,29 @@
+GET http://localhost:3000/api/municipio&limit=2&offset=3
+
+###
+
+GET http://localhost:3000/api/municipio/5
+
+###
+
+POST http://localhost:3000/api/municipio
+Content-Type: application/json
+
+{
+  "nombre": "test original",
+  "departamento": "GUATEMALA"
+}
+
+###
+
+DELETE http://localhost:3000/api/municipio/515
+
+###
+
+PUT http://localhost:3000/api/municipio
+Content-Type: application/json
+
+{
+  "id": 515,
+  "nombre": "test updated"
+}

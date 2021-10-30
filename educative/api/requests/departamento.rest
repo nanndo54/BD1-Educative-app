@@ -1,0 +1,29 @@
+GET http://localhost:3000/api/departamento
+
+###
+
+GET http://localhost:3000/api/departamento/39
+
+###
+
+POST http://localhost:3000/api/departamento
+Content-Type: application/json
+
+{
+  "nombre": "test original",
+  "region": "PETEN"
+}
+
+###
+
+DELETE http://localhost:3000/api/departamento/39
+
+###
+
+PUT http://localhost:3000/api/departamento/39
+Content-Type: application/json
+
+{
+  "nombre": "test updated 2nd",
+  "region": ""
+}

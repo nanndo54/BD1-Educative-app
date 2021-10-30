@@ -1,3 +1,49 @@
+INSERT INTO region VALUES
+(null, 'METROPOLITANA'),
+(null, 'NORTE'),
+(null, 'NORORIENTE'),
+(null, 'SURORIENTE'),
+(null, 'CENTRAL'),
+(null, 'SUROCCIDENTE'),
+(null, 'NOROCCIDENTE'),
+(null, 'PETEN');
+
+INSERT INTO departamento
+SELECT DISTINCT null, nombre_dep, null FROM massive
+WHERE nombre_dep!='';
+
+UPDATE departamento SET id_region=(
+  SELECT id FROM region WHERE nombre='METROPOLITANA'
+) WHERE nombre IN ('GUATEMALA');
+
+UPDATE departamento SET id_region=(
+  SELECT id FROM region WHERE nombre='NORTE'
+) WHERE nombre IN ('ALTA VERAPAZ', 'BAJA VERAPAZ');
+
+UPDATE departamento SET id_region=(
+  SELECT id FROM region WHERE nombre='NORORIENTE'
+) WHERE nombre IN ('IZABAL', 'CHIQUIMULA', 'ZACAPA', 'EL PROGRESO');
+
+UPDATE departamento SET id_region=(
+  SELECT id FROM region WHERE nombre='SURORIENTE'
+) WHERE nombre IN ('JUTIAPA', 'JALAPA', 'SANTA ROSA');
+
+UPDATE departamento SET id_region=(
+  SELECT id FROM region WHERE nombre='CENTRAL'
+) WHERE nombre IN ('CHIMALTENANGO', 'SACATEPEQUEZ', 'ESCUINTLA');
+
+UPDATE departamento SET id_region=(
+  SELECT id FROM region WHERE nombre='SUROCCIDENTE'
+) WHERE nombre IN ('SAN MARCOS', 'QUETZALTENANGO', 'TOTONICAPAN', 'SOLOLA', 'RETALHULEU', 'SUCHITEPEQUEZ');
+
+UPDATE departamento SET id_region=(
+  SELECT id FROM region WHERE nombre='NOROCCIDENTE'
+) WHERE nombre IN ('HUEHUETENANGO', 'QUICHE');
+
+UPDATE departamento SET id_region=(
+  SELECT id FROM region WHERE nombre='PETEN'
+) WHERE nombre IN ('PETEN');
+
 INSERT INTO departamento
 SELECT DISTINCT null, nombre_dep FROM massive
 WHERE nombre_dep!='';
@@ -44,7 +90,7 @@ SELECT DISTINCT null, nivel FROM massive m
 WHERE nivel!='';
 
 INSERT INTO establecimiento
-SELECT DISTINCT null, m.nombre, m.direccion, m.latlones_2, mu.id, n.id, g.id, h.id, e.id, u.id, r.id, es.id, l.id, a.id FROM massive m
+SELECT DISTINCT null, m.nombre, m.direccion, CAST(m.latlones_2 AS UNSIGNED), mu.id, n.id, g.id, h.id, e.id, u.id, r.id, es.id, l.id, a.id FROM massive m
 INNER JOIN municipio mu ON mu.nombre=m.nombre_mun
 INNER JOIN nivel n ON n.nombre=m.nivel
 INNER JOIN genero g ON g.nombre=m.genero

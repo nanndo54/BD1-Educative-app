@@ -1,22 +1,32 @@
 -- 1. Desplegar el porcentaje de establecimientos por cada nivel educativo
-SELECT;
+SELECT
+  n.nombre `nivel educativo`,
+  count(e.id) /(
+    SELECT
+      count(e.id) total
+    FROM
+      establecimiento e
+  ) * 100 `porcentaje establecimientos`
+FROM
+  establecimiento e
+  INNER JOIN nivel n ON n.id = e.id_nivel
+GROUP BY
+  `nivel educativo`;
 -- 2. Desplegar los establecimientos en el sur del país
 SELECT
-  DISTINCT e.nombre establecimiento
+  e.nombre establecimiento
 FROM
   establecimiento e
   INNER JOIN municipio m ON m.id = e.id_municipio
   INNER JOIN departamento d ON d.id = m.id_departamento
 WHERE
-  d.nombre IN (
-    'JUTIAPA',
-    'JALAPA',
-    'SANTA ROSA',
-    'SAN MARCOS',
-    'QUETZALTENANGO',
-    'TOTONICAPAN',
-    'SOLOLA',
-    'RETALHULEU'
+  d.id_region IN (
+    SELECT
+      id
+    FROM
+      region
+    WHERE
+      nombre IN ('SUROCCIDENTE', 'SURORIENTE')
   );
 -- 3. Desplegar un Top 10 de Municipios con menos establecimientos
 SELECT
@@ -71,25 +81,158 @@ GROUP BY
   municipio
 HAVING
   `establecimientos urbanos` >= 1;
-SELECT
-  *
-FROM
-  ubicacion;
 -- 7. Mostrar los departamentos en donde haya más establecimientos para mujeres que para hombres
 SELECT
-  2 + 2;
+  d.nombre departamento,
+  s1.cantidad mujeres,
+  s2.cantidad hombres
+FROM
+  departamento d
+  INNER JOIN (
+    SELECT
+      d.id id,
+      count(e.id) cantidad
+    FROM
+      departamento d
+      INNER JOIN municipio m ON m.id_departamento = d.id
+      INNER JOIN establecimiento e ON e.id_municipio = m.id
+    WHERE
+      e.id_genero =(
+        SELECT
+          id
+        FROM
+          genero
+        WHERE
+          nombre = 'MUJERES'
+      )
+    GROUP BY
+      id
+  ) s1 ON s1.id = d.id
+  INNER JOIN (
+    SELECT
+      d.id id,
+      count(e.id) cantidad
+    FROM
+      departamento d
+      INNER JOIN municipio m ON m.id_departamento = d.id
+      INNER JOIN establecimiento e ON e.id_municipio = m.id
+    WHERE
+      e.id_genero =(
+        SELECT
+          id
+        FROM
+          genero
+        WHERE
+          nombre = 'HOMBRES'
+      )
+    GROUP BY
+      id
+  ) s2 ON s2.id = d.id
+WHERE
+  s1.cantidad > s2.cantidad;
 -- 8. Desplegar el porcentaje de establecimientos rurales y urbanas de los departamentos en donde haya más establecimientos rurales
 SELECT
-  2 + 2;
+  d.nombre departamento,
+  s1.cantidad `e. rurales`,
+  s2.cantidad `e. urbanos`,
+  (s1.cantidad / (s1.cantidad + s2.cantidad)) * 100 `p. e. rurales`,
+  (s2.cantidad / (s1.cantidad + s2.cantidad)) * 100 `p. e. urbanos`
+FROM
+  departamento d
+  INNER JOIN (
+    SELECT
+      d.id id,
+      count(e.id) cantidad
+    FROM
+      departamento d
+      INNER JOIN municipio m ON m.id_departamento = d.id
+      INNER JOIN establecimiento e ON e.id_municipio = m.id
+    WHERE
+      e.id_ubicacion =(
+        SELECT
+          id
+        FROM
+          ubicacion
+        WHERE
+          nombre = 'RURAL'
+      )
+    GROUP BY
+      id
+  ) s1 ON s1.id = d.id
+  INNER JOIN (
+    SELECT
+      d.id id,
+      count(e.id) cantidad
+    FROM
+      departamento d
+      INNER JOIN municipio m ON m.id_departamento = d.id
+      INNER JOIN establecimiento e ON e.id_municipio = m.id
+    WHERE
+      e.id_ubicacion =(
+        SELECT
+          id
+        FROM
+          ubicacion
+        WHERE
+          nombre = 'URBANO'
+      )
+    GROUP BY
+      id
+  ) s2 ON s2.id = d.id;
 -- 9. Mostrar el porcentaje de establecimientos por Jornada
 SELECT
-  2 + 2;
+  h.nombre jornada,
+  count(e.id) /(
+    SELECT
+      count(e.id) total
+    FROM
+      establecimiento e
+  ) * 100 `porcentaje establecimientos`
+FROM
+  establecimiento e
+  INNER JOIN horario h ON h.id = e.id_horario
+GROUP BY
+  jornada;
 -- 10. Desplegar los establecimientos que tengan más estudiantes que el promedio
 SELECT
-  2 + 2;
+  nombre,
+  estudiantes
+FROM
+  establecimiento
+HAVING
+  estudiantes > (
+    SELECT
+      AVG(estudiantes)
+    FROM
+      establecimiento
+  )
+ORDER BY
+  estudiantes;
 -- 11. Desplegar la cantidad estudiantes que hay por región (Norte, Nor-Occidente, NorOriente, Sur-Occidente, Sur-Oriente, Central, Metropolitana, Petén)
 SELECT
-  2 + 2;
+  r.nombre region,
+  sum(e.id) estudiantes
+FROM
+  region r
+  INNER JOIN departamento d ON d.id_region = r.id
+  INNER JOIN municipio m ON m.id_departamento = d.id
+  INNER JOIN establecimiento e ON e.id_municipio = m.id
+GROUP BY
+  region;
 -- 12. Desplegar los 2 establecimientos con más estudiantes de cada departamento
 SELECT
-  2 + 2;
+  d.nombre departamento,
+  e.nombre establecimiento,
+  e.estudiantes estudiantes
+FROM
+  departamento d
+  INNER JOIN municipio m ON m.id_departamento = d.id
+  INNER JOIN establecimiento e ON e.id_municipio = m.id
+GROUP BY
+  departamento
+ORDER BY
+  estudiantes DESC;
+select
+  *
+from
+  establecimiento;

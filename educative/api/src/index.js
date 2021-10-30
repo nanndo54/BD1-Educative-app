@@ -1,12 +1,12 @@
 import express from 'express'
-import morgan from 'morgan'
 import cors from 'cors'
-import appRouter from './routes/app.js'
+import morgan from 'morgan'
+import appRouter from './routes.js'
 
 const app = express()
 app.set('port', process.env.PORT)
-app.use(morgan('dev'))
 app.use(cors())
+app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 

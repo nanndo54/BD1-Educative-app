@@ -1,0 +1,28 @@
+GET http://localhost:3000/api/lengua
+
+###
+
+GET http://localhost:3000/api/lengua/4
+
+###
+
+POST http://localhost:3000/api/lengua
+Content-Type: application/json
+
+{
+  "nombre": "test original"
+}
+
+###
+
+DELETE http://localhost:3000/api/lengua/4
+
+###
+
+PUT http://localhost:3000/api/lengua
+Content-Type: application/json
+
+{
+  "id": 4,
+  "nombre": "test updated"
+}

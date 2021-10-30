@@ -7,12 +7,9 @@ const config = {
   user: process.env.DB_USER,
   password: process.env.DB_PWD,
   database: process.env.DB_NAME
+  // multipleStatements: true
 }
 
-function configureDatabase() {
-  return mysql.createPool(config)
-}
-
-const pool = configureDatabase()
+const pool = mysql.createPool(config)
 
 export default pool

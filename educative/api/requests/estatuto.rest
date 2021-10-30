@@ -1,0 +1,28 @@
+GET http://localhost:3000/api/estatuto
+
+###
+
+GET http://localhost:3000/api/estatuto/8
+
+###
+
+POST http://localhost:3000/api/estatuto
+Content-Type: application/json
+
+{
+  "nombre": "test original"
+}
+
+###
+
+DELETE http://localhost:3000/api/estatuto/8
+
+###
+
+PUT http://localhost:3000/api/estatuto
+Content-Type: application/json
+
+{
+  "id": 8,
+  "nombre": "test updated"
+}

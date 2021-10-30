@@ -1,0 +1,28 @@
+GET http://localhost:3000/api/ubicacion
+
+###
+
+GET http://localhost:3000/api/ubicacion/4
+
+###
+
+POST http://localhost:3000/api/ubicacion
+Content-Type: application/json
+
+{
+  "nombre": "test original"
+}
+
+###
+
+DELETE http://localhost:3000/api/ubicacion/4
+
+###
+
+PUT http://localhost:3000/api/ubicacion
+Content-Type: application/json
+
+{
+  "id": 4,
+  "nombre": "test updated"
+}

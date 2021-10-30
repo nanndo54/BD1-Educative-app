@@ -1,0 +1,28 @@
+GET http://localhost:3000/api/estado
+
+###
+
+GET http://localhost:3000/api/estado/5
+
+###
+
+POST http://localhost:3000/api/estado
+Content-Type: application/json
+
+{
+  "nombre": "test original"
+}
+
+###
+
+DELETE http://localhost:3000/api/estado/5
+
+###
+
+PUT http://localhost:3000/api/estado
+Content-Type: application/json
+
+{
+  "id": 4,
+  "nombre": "test updated"
+}

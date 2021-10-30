@@ -1,0 +1,40 @@
+GET http://localhost:3000/api/establecimiento&limit=5&offset=1000
+
+###
+
+GET http://localhost:3000/api/establecimiento/32768
+
+###
+
+POST http://localhost:3000/api/establecimiento
+Content-Type: application/json
+
+{
+  "nombre": "test original",
+  "direccion": "testing",
+  "estudiantes": 5,
+  "municipio": "GUATEMALA",
+  "nivel": "PRIMARIA DE ADULTOS",
+  "genero": "HOMBRES",
+  "horario": "MATUTINA",
+  "estatuto": "OFICIAL",
+  "ubicacion": "RURAL",
+  "rol": "ANEXA",
+  "estado": "ABIERTA",
+  "lengua": "BILINGUE",
+  "apertura": "ANUAL"
+}
+
+###
+
+DELETE http://localhost:3000/api/establecimiento/32768
+
+###
+
+PUT http://localhost:3000/api/establecimiento/32768
+Content-Type: application/json
+
+{
+  "estudiantes": 500,
+  "nombre": "test updated 2nd"
+}

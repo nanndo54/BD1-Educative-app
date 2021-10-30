@@ -1,0 +1,13 @@
+.base {
+  background-color: white;
+  height: 100vh;
+
+  display: grid;
+  grid-template-columns: 300px 1fr;
+}
+
+.content {
+  padding: 20px 30px 40px;
+
+  overflow: hidden auto;
+}

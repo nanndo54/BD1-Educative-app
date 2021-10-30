@@ -1,0 +1,28 @@
+GET http://localhost:3000/api/horario
+
+###
+
+GET http://localhost:3000/api/horario/8
+
+###
+
+POST http://localhost:3000/api/horario
+Content-Type: application/json
+
+{
+  "nombre": "test original"
+}
+
+###
+
+DELETE http://localhost:3000/api/horario/8
+
+###
+
+PUT http://localhost:3000/api/horario
+Content-Type: application/json
+
+{
+  "id": 8,
+  "nombre": "test updated"
+}
