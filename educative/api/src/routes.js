@@ -68,6 +68,7 @@ function appRouter(app) {
 
   app.post('/api/:entity([a-z]+)', (request, response) => {
     const { entity } = request.params
+
     if (!entities.includes(entity)) {
       return response.status(404).send('Entidad no reconocida')
     }

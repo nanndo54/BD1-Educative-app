@@ -18,12 +18,13 @@ function InsertForm() {
     e.preventDefault()
 
     async function insertItem() {
-      const data = {}
-      headers.forEach((header, i) => (data[header] = e.target[i].value))
+      const row = {}
+      headers.forEach((header, i) => (row[header] = e.target[i].value))
+      console.log(row)
 
-      const result = await axios.post(`${URL}/${entity}`, data)
+      const result = await axios.post(`${URL}/${entity}`, row)
       if (result.status === 201) {
-        const newData = { ...result.data, ...data }
+        const newData = { ...result.data, ...row }
         dispatch(appendData(newData))
         dispatch(setMode(''))
       }
@@ -38,13 +39,12 @@ function InsertForm() {
     async function updateItem() {
       const { id } = selectedRow
 
-      const data = {}
-      headers.forEach((header, i) => (data[header] = e.target[i].value))
-      console.log(data)
+      const row = {}
+      headers.forEach((header, i) => (row[header] = e.target[i].value))
 
-      const result = await axios.put(`${URL}/${entity}/${id}`, data)
+      const result = await axios.put(`${URL}/${entity}/${id}`, row)
       if (result.status === 200) {
-        dispatch(updateData(data))
+        dispatch(updateData(row))
         dispatch(setMode(''))
       }
     }
@@ -74,7 +74,9 @@ function InsertForm() {
 
   return (
     <div className={styles.base}>
-      {!mode && (
+      {mode ? (
+        <Button onClick={toggleInserting}>Cancelar</Button>
+      ) : (
         <Button primary onClick={toggleInserting}>
           Nuevo elemento
         </Button>
@@ -83,7 +85,6 @@ function InsertForm() {
         {
           inserting: (
             <form onSubmit={handleInsert}>
-              <Button onClick={toggleInserting}>Cancelar</Button>
               {headers.map((name) => (
                 <div key={name}>
                   <label htmlFor={name}>{name}:</label>
@@ -97,15 +98,10 @@ function InsertForm() {
           ),
           updating: (
             <form onSubmit={handleUpdate}>
-              <Button onClick={toggleInserting}>Cancelar</Button>
               {headers.map((name) => (
                 <div key={name}>
                   <label htmlFor={name}>{name}:</label>
-                  <input
-                    name={name}
-                    placeholder={`Nuevo ${name}`}
-                    value={selectedRow[name]}
-                  />
+                  <input name={name} placeholder={selectedRow[name]} />
                 </div>
               ))}
               <div className={styles.buttons}>
